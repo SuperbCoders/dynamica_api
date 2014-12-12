@@ -4,6 +4,8 @@ module DynamicaAPI
     property :period
     property :depth
     property :group_method
+    property :from
+    property :to
     property :workflow_state
     property :planned_at
     attr_accessor :item
@@ -43,7 +45,7 @@ module DynamicaAPI
     private
 
       def create_params
-        { forecast: { period: period, depth: depth, group_method: group_method, planned_at: planned_at } }
+        { forecast: { period: period, depth: depth, group_method: group_method, from: from, to: to, planned_at: planned_at } }
       end
 
   end
