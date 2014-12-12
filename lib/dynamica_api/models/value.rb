@@ -16,8 +16,8 @@ module DynamicaAPI
     private
 
       def create_params
-        { value: { timestamp: timestamp, value: value },
-          item: { sku: item.sku, name: item.name } }
+        { item: { sku: item.sku, name: item.name },
+          values: [{ timestamp: timestamp, value: value }] }
       end
 
   end

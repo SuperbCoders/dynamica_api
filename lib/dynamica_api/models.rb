@@ -1,0 +1,6 @@
+require 'dynamica_api/models/base'
+require 'dynamica_api/models/project'
+require 'dynamica_api/models/item'
+require 'dynamica_api/models/value'
+require 'dynamica_api/models/forecast'
+require 'dynamica_api/models/predicted_value'

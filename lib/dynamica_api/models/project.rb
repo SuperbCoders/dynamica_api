@@ -3,10 +3,10 @@ module DynamicaAPI
     property :id
     property :name
 
-    def create_value(options)
+    def create_values(options)
       item = DynamicaAPI::Item.new(options[:item])
       item.project = self
-      item.create_value(options[:value])
+      item.create_values(options[:values])
     end
 
     def create_forecast(options)

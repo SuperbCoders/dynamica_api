@@ -5,7 +5,7 @@ module DynamicaAPI
     protected
 
       def self.headers
-        { 'CONTENT_TYPE' => ::Mime::JSON.to_s, 'Authorization' => ActionController::HttpAuthentication::Token.encode_credentials(DynamicaAPI.config.api_token) }
+        { content_type: :json, accept: :json, 'Authorization' => ActionController::HttpAuthentication::Token.encode_credentials(DynamicaAPI.config.api_token) }
       end
 
       def self.url_from(path)
@@ -17,11 +17,11 @@ module DynamicaAPI
       end
 
       def self.post(path, options = {})
-        RestClient.post(url_from(path), options, headers)
+        RestClient.post(url_from(path), options.to_json, headers)
       end
 
       def self.patch(path, options = {})
-        RestClient.patch(url_from(path), options, headers)
+        RestClient.patch(url_from(path), options.to_json, headers)
       end
 
       def self.delete(path, options = {})
