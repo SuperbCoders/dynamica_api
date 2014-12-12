@@ -9,7 +9,7 @@ module DynamicaAPI
       if response.code == 201
         json = JSON.parse(response, symbolize_names: true)
         json.map do |value_json|
-          value = Value.new(value_json)
+          value = Value.new(value_json[:value])
           value.item = self
           value
         end
@@ -30,6 +30,21 @@ module DynamicaAPI
         true
       else
         raise "Can't destroy values: #{response.body}"
+      end
+    end
+
+    def forecasts
+      response = get("projects/#{project.id}/items/#{sku}/forecasts")
+      if response.code == 200
+        json = JSON.parse(response, symbolize_names: true)
+        puts json.inspect
+        json.map do |forecast_json|
+          forecast = Forecast.new(forecast_json[:forecast])
+          forecast.item = self
+          forecast
+        end
+      else
+        raise "Can't load forecasts: #{response.body}"
       end
     end
 
