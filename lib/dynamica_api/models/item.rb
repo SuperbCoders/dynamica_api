@@ -18,33 +18,12 @@ module DynamicaAPI
       end
     end
 
-    def create_forecast(options)
-      forecast = DynamicaAPI::Forecast.new(options)
-      forecast.item = self
-      forecast.create
-    end
-
     def destroy_values
       response = delete("projects/#{project.id}/items/#{sku}/values")
       if response.code == 204
         true
       else
         raise "Can't destroy values: #{response.body}"
-      end
-    end
-
-    def forecasts
-      response = get("projects/#{project.id}/items/#{sku}/forecasts")
-      if response.code == 200
-        json = JSON.parse(response, symbolize_names: true)
-        puts json.inspect
-        json.map do |forecast_json|
-          forecast = Forecast.new(forecast_json[:forecast])
-          forecast.item = self
-          forecast
-        end
-      else
-        raise "Can't load forecasts: #{response.body}"
       end
     end
 
