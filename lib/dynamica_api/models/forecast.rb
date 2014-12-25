@@ -22,14 +22,14 @@ module DynamicaAPI
     end
 
     def lines
-      response = get("forecasts/#{id}/predicted_values")
+      response = get("forecasts/#{id}/lines")
       if response.code == 200
         json = JSON.parse(response, symbolize_names: true)
         json.map do |data|
-          forecast_line = ForecastLine.new
+          forecast_line = ForecastLine.new(data[:forecast_line])
           forecast_line.forecast = self
-          forecast_line.item = Item.new(data[:prediction][:item])
-          forecast_line.values = data[:prediction][:predicted_values].map do |pv_data|
+          forecast_line.item = Item.new(data[:forecast_line][:item])
+          forecast_line.values = data[:forecast_line][:predicted_values].map do |pv_data|
             pv = PredictedValue.new(pv_data)
             pv.forecast_line = forecast_line
             pv
